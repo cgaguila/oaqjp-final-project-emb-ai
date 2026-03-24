@@ -18,6 +18,19 @@ def emotion_detector(text_to_analyze): #Define a function named sentiment_analyz
     #Sending a POST request to the sentiment analysis API 
     response = requests.post(url, json=myobj, headers=header)
 
+    # Manejo de error para entradas en blanco (status code 400)
+    if response.status_code == 400:
+        return {
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
+
+
+
     # Paso 1: Convertir el texto de respuesta a diccionario
     response_dict = json.loads(response.text)
 
